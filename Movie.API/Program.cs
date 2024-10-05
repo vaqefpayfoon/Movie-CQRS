@@ -1,11 +1,12 @@
 
-namespace Movie.Application;
+namespace Movie.API;
 
 using Microsoft.EntityFrameworkCore;
 using Movie.Infrastructure;
+using Movie.Application;
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,17 @@ public class Program
         builder.Services.AddAutoMapper(typeof(Program));
         builder.Services.AddApplication();
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
+
         var app = builder.Build();
 
         // // Configure the HTTP request pipeline.

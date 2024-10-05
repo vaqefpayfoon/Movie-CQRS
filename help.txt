@@ -36,3 +36,6 @@ dotnet ef database update
 
 docker build -t webapp .
 docker run -p 5205:5205 movie-api
+
+------------------------------------
+dotnet add package Microsoft.AspNetCore.Mvc.Testing
